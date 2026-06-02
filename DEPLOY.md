@@ -270,7 +270,7 @@ Or via git if the project is in a repository:
 ```bash
 # On the server
 cd /opt
-git clone <REPOSITORY_URL> hydrao-lora-showerhead-cloud
+git clone https://github.com/hydrao-opensource/hydrao-lora-showerhead-cloud.git hydrao-lora-showerhead-cloud
 ```
 
 Copy the separately provided data files:
