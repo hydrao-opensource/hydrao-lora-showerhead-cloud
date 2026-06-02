@@ -1,0 +1,45 @@
+[integration.mqtt.auth.generic]
+servers=["tcp://mosquitto:1883"]
+username=""
+password=""
+
+[integration.mqtt]
+# Correspond au id="us915" dans region_us915.toml côté ChirpStack
+event_topic_template="us915/gateway/{{ .GatewayID }}/event/{{ .EventType }}"
+state_topic_template="us915/gateway/{{ .GatewayID }}/state/{{ .StateType }}"
+command_topic_template="us915/gateway/{{ .GatewayID }}/command/#"
+
+[backend]
+type="basic_station"
+
+  [backend.basic_station]
+  bind=":3001"
+  tls_cert=""
+  tls_key=""
+  ca_cert=""
+
+  region="US915"
+  frequency_min=902000000
+  frequency_max=928000000
+
+  # Sous-bande 0 (FSB1 LoRaWAN) : canaux 0-7 (125kHz) + canal 64 (500kHz)
+  # Si tes gateways de prod sont sur une autre sous-bande, ajuste ces fréquences
+  # FSB0: 902.3-903.7 + 903.0 | FSB1: 903.9-905.3 + 904.6 | FSB2: 905.5-906.9 + 906.2 ...
+  [[backend.basic_station.concentrators]]
+
+    [backend.basic_station.concentrators.multi_sf]
+    frequencies=[
+      902300000,
+      902500000,
+      902700000,
+      902900000,
+      903100000,
+      903300000,
+      903500000,
+      903700000,
+    ]
+
+    [backend.basic_station.concentrators.lora_std]
+    frequency=903000000
+    bandwidth=500000
+    spreading_factor=8

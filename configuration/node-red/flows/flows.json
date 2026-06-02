@@ -1,0 +1,1197 @@
+[
+    {
+        "id": "f6f2187d.f17ca8",
+        "type": "tab",
+        "label": "Showerhead-flows",
+        "disabled": false,
+        "info": ""
+    },
+    {
+        "id": "7e2b89358432997f",
+        "type": "mqtt-broker",
+        "name": "Mosquitto",
+        "broker": "mosquitto",
+        "port": 1883,
+        "clientid": "",
+        "autoConnect": true,
+        "usetls": false,
+        "protocolVersion": 4,
+        "keepalive": 60,
+        "cleansession": true,
+        "autoUnsubscribe": true,
+        "birthTopic": "",
+        "birthQos": "0",
+        "birthRetain": "false",
+        "birthPayload": "",
+        "birthMsg": {},
+        "closeTopic": "",
+        "closeQos": "0",
+        "closeRetain": "false",
+        "closePayload": "",
+        "closeMsg": {},
+        "willTopic": "",
+        "willQos": "0",
+        "willRetain": "false",
+        "willPayload": "",
+        "willMsg": {},
+        "userProps": "",
+        "sessionExpiry": ""
+    },
+    {
+        "id": "0978fcc944b23ac0",
+        "type": "global-config",
+        "env": [],
+        "modules": {}
+    },
+    {
+        "id": "6ec5766bf47e99af",
+        "type": "ui_base",
+        "theme": {
+            "name": "theme-light",
+            "lightTheme": {
+                "default": "#0094CE",
+                "baseColor": "#0094CE",
+                "baseFont": "-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen-Sans,Ubuntu,Cantarell,Helvetica Neue,sans-serif",
+                "edited": true,
+                "reset": false
+            },
+            "darkTheme": {
+                "default": "#097479",
+                "baseColor": "#097479",
+                "baseFont": "-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen-Sans,Ubuntu,Cantarell,Helvetica Neue,sans-serif",
+                "edited": false
+            },
+            "customTheme": {
+                "name": "Untitled Theme 1",
+                "default": "#4B7930",
+                "baseColor": "#4B7930",
+                "baseFont": "-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen-Sans,Ubuntu,Cantarell,Helvetica Neue,sans-serif"
+            },
+            "themeState": {
+                "base-color": {
+                    "default": "#0094CE",
+                    "value": "#0094CE",
+                    "edited": false
+                },
+                "page-titlebar-backgroundColor": {
+                    "value": "#0094CE",
+                    "edited": false
+                },
+                "page-backgroundColor": {
+                    "value": "#fafafa",
+                    "edited": false
+                },
+                "page-sidebar-backgroundColor": {
+                    "value": "#ffffff",
+                    "edited": false
+                },
+                "group-textColor": {
+                    "value": "#1bbfff",
+                    "edited": false
+                },
+                "group-borderColor": {
+                    "value": "#ffffff",
+                    "edited": false
+                },
+                "group-backgroundColor": {
+                    "value": "#ffffff",
+                    "edited": false
+                },
+                "widget-textColor": {
+                    "value": "#111111",
+                    "edited": false
+                },
+                "widget-backgroundColor": {
+                    "value": "#0094ce",
+                    "edited": false
+                },
+                "widget-borderColor": {
+                    "value": "#ffffff",
+                    "edited": false
+                },
+                "base-font": {
+                    "value": "-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen-Sans,Ubuntu,Cantarell,Helvetica Neue,sans-serif"
+                }
+            },
+            "angularTheme": {
+                "primary": "indigo",
+                "accents": "blue",
+                "warn": "red",
+                "background": "grey",
+                "palette": "light"
+            }
+        },
+        "site": {
+            "name": "Node-RED Dashboard",
+            "hideToolbar": "false",
+            "allowSwipe": "false",
+            "lockMenu": "false",
+            "allowTempTheme": "true",
+            "dateFormat": "DD/MM/YYYY",
+            "sizes": {
+                "sx": 48,
+                "sy": 48,
+                "gx": 6,
+                "gy": 6,
+                "cx": 6,
+                "cy": 6,
+                "px": 0,
+                "py": 0
+            }
+        }
+    },
+    {
+        "id": "b2d70489494710b0",
+        "type": "influxdb",
+        "hostname": "${INFLUXDB_URL}",
+        "port": 8086,
+        "protocol": "http",
+        "database": "database",
+        "name": "InfluxDb",
+        "usetls": false,
+        "tls": "",
+        "influxdbVersion": "2.0",
+        "url": "${INFLUXDB_URL}",
+        "timeout": 10,
+        "rejectUnauthorized": false
+    },
+    {
+        "id": "8cca11256bfae5ba",
+        "type": "mqtt in",
+        "z": "f6f2187d.f17ca8",
+        "name": "Chirpstack MQTT devices",
+        "topic": "application/+/device/+/event/up",
+        "qos": "2",
+        "datatype": "auto-detect",
+        "broker": "7e2b89358432997f",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 150,
+        "y": 740,
+        "wires": [
+            [
+                "96eb5b0e5c5b75ba",
+                "a0b1c2d3e4f50001"
+            ]
+        ]
+    },
+    {
+        "id": "96eb5b0e5c5b75ba",
+        "type": "debug",
+        "z": "f6f2187d.f17ca8",
+        "name": "debug mqtt device",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 570,
+        "y": 740,
+        "wires": []
+    },
+    {
+        "id": "53693bf9b6b351d0",
+        "type": "function",
+        "z": "f6f2187d.f17ca8",
+        "name": "decode_showerhead_us",
+        "func": "function decode(bytes) {\n  let payload = bytes;\n  let returnValue = {\n    showers: {},\n    state: {\n      live: {},\n    }\n\n  };\n\n  if ((payload[0] == 25) || (payload[0] == 27)) {\n    //histo\n    //Id(2)\tLiters(2)\tFlowrate(1)\tTemperature(1)\tSoaping time(1)\tNumber of soaping(1)\tduration(2)\n    let showerId = payload[1] + (payload[2] << 8);\n    if (!returnValue.showers[showerId]) {\n      returnValue.showers[showerId] = {}\n    }\n    returnValue.showers[showerId].liter = payload[3] + (payload[4] << 8);\n    returnValue.showers[showerId].flow = payload[5];\n    returnValue.showers[showerId].temperature = payload[6] << 4;\n    returnValue.showers[showerId].soaping_time = payload[7];\n    returnValue.showers[showerId].number_of_soaping = payload[8];\n    returnValue.showers[showerId].duration = payload[9] + (payload[10] << 8);\n  } else if (payload[0] == 26) {\n    //live\n    //Id(2)\tLiters(2)\taverage Flowrate(2)\tinstant temperature(2)\n    returnValue.state.live = {\n      id: payload[1] + (payload[2] << 8),\n      liter: payload[3] + (payload[4] << 8),\n      averageFlow: payload[5] + (payload[6] << 8),\n      instantTemperature: payload[7] + (payload[8] << 8),\n      date: new Date().toISOString()\n    };\n    // returnValue.showers[returnValue.state.live.id] = {\n    //     liter: returnValue.state.live.liter,\n    //     date: returnValue.state.live.date,\n    //     flow: returnValue.state.live.averageFlow\n    // };\n\n  } else if (payload[0] == 5) {\n    //05 10 00 FF 00 20 00 00 FF 30 7D 00 7D 40 FF 00 00\n\n    //threshold\n    returnValue.state.thresholds = [];\n    for (var i = 1; i < 17; i += 4) {\n      returnValue.state.thresholds.push({\n        liter: payload[i],\n        color: 'FF' + (('0' + payload[i + 1].toString(16)).slice(-2) + ('0' + payload[i + 2].toString(16)).slice(-2) + ('0' + payload[i + 3].toString(16)).slice(-2)).toUpperCase()\n      });\n    }\n\n  } else if (payload[0] == 7) {\n    //calibration(2)\n    returnValue.state.calibration = payload[1] + (payload[2] << 8);\n  } else if (payload[0] == 12) {\n    //get soaping threshold\n    returnValue.state.soaping_threshold = payload[1] + (payload[2] << 8);\n  }\n\n  return {\n    data: returnValue, // JSON object\n    warnings: [], // Optional warnings\n    errors: [] // Optional errors\n  };\n}\n\nif (msg.payload.data) {\n  let data = Buffer.from(msg.payload.data, 'base64')\n  msg.decodedData = decode(data);\n  node.warn(msg.decodedData);\n}\n\n\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 750,
+        "y": 480,
+        "wires": [
+            [
+                "114b090f789b477d"
+            ]
+        ]
+    },
+    {
+        "id": "e93cb05909e343fa",
+        "type": "switch",
+        "z": "f6f2187d.f17ca8",
+        "name": "Has Shower data ?",
+        "property": "shower_data",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "nempty"
+            },
+            {
+                "t": "empty"
+            },
+            {
+                "t": "null"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 3,
+        "x": 1610,
+        "y": 520,
+        "wires": [
+            [
+                "0fa0b4e9d675899d",
+                "5402b00aff7ea33b"
+            ],
+            [
+                "651dbe64cb86da45"
+            ],
+            [
+                "651dbe64cb86da45"
+            ]
+        ]
+    },
+    {
+        "id": "651dbe64cb86da45",
+        "type": "debug",
+        "z": "f6f2187d.f17ca8",
+        "name": "debug_shower_no_data",
+        "active": true,
+        "tosidebar": true,
+        "console": true,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 2090,
+        "y": 540,
+        "wires": []
+    },
+    {
+        "id": "114b090f789b477d",
+        "type": "function",
+        "z": "f6f2187d.f17ca8",
+        "name": "process_showerhead",
+        "func": "if (!msg.decodedData) {\n    return msg;\n}\n\nconst devEui = msg.payload.deviceInfo.devEui;\nconst deviceTags = msg.payload.deviceInfo.tags || {};\nconst receivedAt = msg.payload.time ?? new Date().toISOString();\n\nconst LIVE_KEY = 'sh_live_' + devEui;\nconst THRESHOLDS_KEY = 'sh_thresh_' + devEui;\nconst PROCESSED_KEY = 'sh_done_' + devEui;\n\nfunction computeTemp(rawValue) {\n    return Math.round(((3096.4 - rawValue) / 40.403) * 10) / 10;\n}\n\nfunction computeFlow(rawFlow) {\n    return Math.round((1000 * 60 * 20) / (610 * rawFlow * 4) * 100) / 100;\n}\n\nconst decoded = msg.decodedData;\nconst { showers, state } = decoded.data;\n\n// --- Thresholds ---\nlet currentThresholds = flow.get(THRESHOLDS_KEY) || deviceTags.thresholds || null;\nif (state.thresholds) {\n    const thresholdsStr = JSON.stringify(state.thresholds);\n    if (thresholdsStr !== currentThresholds) {\n        flow.set(THRESHOLDS_KEY, thresholdsStr);\n        msg.sh_data = { thresholds: thresholdsStr };\n        currentThresholds = thresholdsStr;\n    }\n}\n\n// --- Live shower ---\nlet liveShowers = flow.get(LIVE_KEY) || {};\nlet liveId;\n\nif (state.live && state.live.id !== undefined) {\n    const raw = state.live;\n    liveId = raw.id;\n\n    const liveFields = { volume: raw.liter };\n    if (raw.averageFlow) liveFields.flow = computeFlow(raw.averageFlow);\n    if (raw.instantTemperature) liveFields.temperature = computeTemp(raw.instantTemperature);\n\n    liveShowers[liveId] = { date: receivedAt, volume: raw.liter };\n    flow.set(LIVE_KEY, liveShowers);\n\n    msg.live_data = [{\n        measurement: \"showers_live\",\n        tags: { devEui, showerId: String(liveId) },\n        fields: liveFields,\n        timestamp: new Date(receivedAt)\n    }];\n}\n\n// --- Historical showers ---\nconst showerPoints = [];\nconst liveToDelete = [];\nconst processedShowers = flow.get(PROCESSED_KEY) || {};\n\nfor (const [showerId, showerData] of Object.entries(showers)) {\n    const showerIdNum = parseInt(showerId, 10);\n    if (liveId !== undefined && liveId === showerIdNum) continue;\n\n    // Deduplication: skip showers already written to InfluxDB\n    if (processedShowers[showerId]) continue;\n\n    const dbLive = liveShowers[showerId] ?? null;\n    let showerDate = showerData.date;\n    if (dbLive) {\n        showerDate = dbLive.date;\n        delete liveShowers[showerId];\n        liveToDelete.push({ devEui, showerId });\n    } else if (!showerDate) {\n        showerDate = receivedAt;\n    }\n\n    const fields = {\n        volume: showerData.liter,\n        duration: showerData.duration,\n        soaping_time: showerData.soaping_time,\n        number_of_soaping: showerData.number_of_soaping,\n    };\n\n    if (showerData.temperature) fields.temperature = computeTemp(showerData.temperature);\n    if (showerData.flow && Number.isFinite(showerData.flow)) fields.flow = computeFlow(showerData.flow);\n\n    const tags = { devEui, showerId };\n    if (currentThresholds) tags.thresholds = currentThresholds;\n\n    showerPoints.push({\n        measurement: \"showers\",\n        tags,\n        fields,\n        timestamp: new Date(showerDate)\n    });\n\n    processedShowers[showerId] = showerDate;\n}\n\nflow.set(LIVE_KEY, liveShowers);\nflow.set(PROCESSED_KEY, processedShowers);\n\nif (showerPoints.length > 0) {\n    msg.shower_data = showerPoints;\n}\n\nif (liveToDelete.length > 0) {\n    msg.delete_live_data = liveToDelete;\n}\n\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1120,
+        "y": 540,
+        "wires": [
+            [
+                "6017888427100f86",
+                "e93cb05909e343fa",
+                "a1b2c3d4e5f6a1b2",
+                "c3d4e5f6a1b2c3d4"
+            ]
+        ],
+        "info": "Conductivity / Break events: TODO"
+    },
+    {
+        "id": "7e89800b079fd787",
+        "type": "inject",
+        "z": "f6f2187d.f17ca8",
+        "name": "Inject 1 shower US",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "application/1f5328c7-8462-429e-a6a5-6abe135a9fdc/device/59edbb94c18de73e/event/up",
+        "payload": "{   \"deduplicationId\": \"c9be72ff-80ad-43f5-9aa1-40605a81f739\",   \"time\": \"2026-03-05T15:06:21.011601133+00:00\",   \"deviceInfo\": {     \"tenantId\": \"62ec04b7-79d3-40c8-a260-9cdc8b4e1e28\",     \"tenantName\": \"ChirpStack\",     \"applicationId\": \"20b41de0-743f-43a1-883e-4b407244d9c7\",     \"applicationName\": \"Batiment A\",     \"deviceProfileId\": \"176a9ecf-1348-45ee-8963-fc6dfbed7a0f\",     \"deviceProfileName\": \"Showerhead-US\",     \"deviceName\": \"Cereus\",     \"devEui\": \"3833323400260045\",     \"deviceClassEnabled\": \"CLASS_A\",     \"tags\": { \"location\": \"RDC\" }   },   \"devAddr\": \"00eb4d28\",   \"adr\": false,   \"dr\": 3,   \"fCnt\": 4,   \"fPort\": 8,   \"confirmed\": false,   \"data\": \"Gb0gDwBQbQAAoAA=\",   \"rxInfo\": [     {       \"gatewayId\": \"00005813d31c83a2\",       \"uplinkId\": 59403,       \"nsTime\": \"2026-03-05T15:06:20.787463008+00:00\",       \"rssi\": -50,       \"snr\": 12.5,       \"channel\": 1,       \"location\": {},       \"context\": \"30CjvA==\",       \"crcStatus\": \"CRC_OK\"     }   ],   \"txInfo\": {     \"frequency\": 867300000,     \"modulation\": {       \"lora\": {         \"bandwidth\": 125000,         \"spreadingFactor\": 9,         \"codeRate\": \"CR_4_5\"       }     }   },   \"regionConfigId\": \"us915\" }",
+        "payloadType": "json",
+        "x": 150,
+        "y": 560,
+        "wires": [
+            [
+                "a0b1c2d3e4f50001"
+            ]
+        ],
+        "info": "On peut retrouver la partie data (en Hexa) dans :\n\nhttps://eu-west-1.console.aws.amazon.com/s3/buckets/meter-event-prod?prefix=input_3p%2Fhac%2Fglacier%2F8336312404000001%2F&region=eu-west-1&tab=objects\n"
+    },
+    {
+        "id": "6017888427100f86",
+        "type": "switch",
+        "z": "f6f2187d.f17ca8",
+        "name": "Has Showerhead data ?",
+        "property": "sh_data",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "nempty"
+            },
+            {
+                "t": "empty"
+            },
+            {
+                "t": "null"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 3,
+        "x": 1590,
+        "y": 220,
+        "wires": [
+            [
+                "31744cd42d54d1a7"
+            ],
+            [],
+            []
+        ]
+    },
+    {
+        "id": "3436d9cacf9f5dae",
+        "type": "debug",
+        "z": "f6f2187d.f17ca8",
+        "name": "debug_meter_data",
+        "active": true,
+        "tosidebar": true,
+        "console": true,
+        "tostatus": false,
+        "complete": "payload.device",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 2840,
+        "y": 120,
+        "wires": []
+    },
+    {
+        "id": "fe3669263ad56aee",
+        "type": "function",
+        "z": "f6f2187d.f17ca8",
+        "name": "prepare_update_device",
+        "func": "const apiKey = env.get(\"CHIRPSTACK_API_TOKEN\");\nconst apiUrl = env.get(\"CHIRPSTACK_URL\");\nlet device = msg.payload.device;\nconst devEui = device.devEui;\n\nfunction stringifyTags(obj) {\n    const cleaned = {};\n    for (const key in obj) {\n        if (obj[key] !== null && obj[key] !== undefined) {\n            cleaned[key] = String(obj[key]);\n        }\n    }\n    return cleaned;\n}\n\nmsg.method = \"PUT\";\nmsg.url = `${apiUrl}/api/devices/${devEui}`;\nmsg.headers = {\n    \"Authorization\": `Bearer ${apiKey}`,\n    \"Content-Type\": \"application/json\"\n};\n\ndevice.tags = {\n    ...device.tags,\n    ...stringifyTags(msg.meter_data || {}),\n    ...stringifyTags(msg.sh_data || {})\n};\n\nmsg.payload = {\n    \"device\": device\n};\n\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 2550,
+        "y": 200,
+        "wires": [
+            [
+                "3436d9cacf9f5dae",
+                "092f7e2419153e6f"
+            ]
+        ]
+    },
+    {
+        "id": "092f7e2419153e6f",
+        "type": "http request",
+        "z": "f6f2187d.f17ca8",
+        "name": "update_device",
+        "method": "use",
+        "ret": "obj",
+        "paytoqs": "ignore",
+        "url": "",
+        "tls": "",
+        "persist": false,
+        "proxy": "",
+        "insecureHTTPParser": false,
+        "authType": "",
+        "senderr": false,
+        "headers": [],
+        "x": 2820,
+        "y": 200,
+        "wires": [
+            [
+                "76ce38300b53d438"
+            ]
+        ]
+    },
+    {
+        "id": "75b9d3e0f1cfc1b4",
+        "type": "debug",
+        "z": "f6f2187d.f17ca8",
+        "name": "debug_meter_update_error",
+        "active": true,
+        "tosidebar": true,
+        "console": true,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 3340,
+        "y": 200,
+        "wires": []
+    },
+    {
+        "id": "31744cd42d54d1a7",
+        "type": "function",
+        "z": "f6f2187d.f17ca8",
+        "name": "prepare_get_device",
+        "func": "const apiKey = env.get(\"CHIRPSTACK_API_TOKEN\");\nconst apiUrl = env.get(\"CHIRPSTACK_URL\");\nconst devEui = msg.payload.deviceInfo.devEui;\n\nmsg.method = \"GET\";\nmsg.url = `${apiUrl}/api/devices/${devEui}`;\nmsg.headers = {\n    \"Authorization\": `Bearer ${apiKey}`,\n    \"Content-Type\": \"application/json\"\n};\n\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 2070,
+        "y": 200,
+        "wires": [
+            [
+                "ecd0e7da154b193a"
+            ]
+        ]
+    },
+    {
+        "id": "ecd0e7da154b193a",
+        "type": "http request",
+        "z": "f6f2187d.f17ca8",
+        "name": "get_device",
+        "method": "use",
+        "ret": "obj",
+        "paytoqs": "ignore",
+        "url": "",
+        "tls": "",
+        "persist": false,
+        "proxy": "",
+        "insecureHTTPParser": false,
+        "authType": "",
+        "senderr": false,
+        "headers": [],
+        "x": 2310,
+        "y": 200,
+        "wires": [
+            [
+                "fe3669263ad56aee"
+            ]
+        ]
+    },
+    {
+        "id": "76ce38300b53d438",
+        "type": "switch",
+        "z": "f6f2187d.f17ca8",
+        "name": "update_result_switch",
+        "property": "statusCode",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "200",
+                "vt": "str"
+            },
+            {
+                "t": "neq",
+                "v": "200",
+                "vt": "str"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 2,
+        "x": 3060,
+        "y": 200,
+        "wires": [
+            [],
+            [
+                "75b9d3e0f1cfc1b4"
+            ]
+        ]
+    },
+    {
+        "id": "abd3492bdb150ca1",
+        "type": "mqtt in",
+        "z": "f6f2187d.f17ca8",
+        "name": "Chirpstack MQTT gateways",
+        "topic": "+/gateway/+/event/stats",
+        "qos": "2",
+        "datatype": "auto-detect",
+        "broker": "7e2b89358432997f",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 160,
+        "y": 1160,
+        "wires": [
+            [
+                "77f2072c9148b861",
+                "f4d997243169719b"
+            ]
+        ]
+    },
+    {
+        "id": "77f2072c9148b861",
+        "type": "debug",
+        "z": "f6f2187d.f17ca8",
+        "name": "debug mqtt gateway",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 560,
+        "y": 1160,
+        "wires": []
+    },
+    {
+        "id": "0fa0b4e9d675899d",
+        "type": "debug",
+        "z": "f6f2187d.f17ca8",
+        "name": "debug_shower_data",
+        "active": true,
+        "tosidebar": true,
+        "console": true,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 2080,
+        "y": 420,
+        "wires": []
+    },
+    {
+        "id": "f4d997243169719b",
+        "type": "function",
+        "z": "f6f2187d.f17ca8",
+        "name": "process_gateway_offline",
+        "func": "\nconst CONTEXT_GATEWAYS=`gateways`;\nconst now = Date.now();\nconst OFFLINE_DELAY = 10 * 60 * 1000; // more than 10 mins without data => offline\nconst alertsData = [];\n\n// prepare gateways status\nlet gateways = flow.get(CONTEXT_GATEWAYS);\nif (!gateways) {\n    gateways = {lastSeen: {}, offline: [], offlineId: {} };\n}\n//node.warn(gateways);\n\nlet gtwEUI;\nif (msg.topic) {\n    gtwEUI = msg.topic.split('/')[2];\n\n    // --- manage current gateway => set online\n\n    // store gateway last seen\n    gateways.lastSeen[gtwEUI] = new Date().getTime();\n\n    if (gateways.offline.indexOf(gtwEUI) > -1) {\n        // CASE cancel offline alert\n\n        gateways.offline = gateways.offline.filter((eui) => eui != gtwEUI);\n        const alertId = gateways.offlineId[gtwEUI];\n        delete gateways.offlineId[gtwEUI];\n\n        // add in alert data for influxDB\n        alertsData.push({\n            measurement: \"gateway_alerts\",\n            tags: { devEui: gtwEUI, alertId: alertId, alertType: \"offline\", severity: \"critical\" },\n            fields: { value: 0 },\n            timestamp: new Date()\n        });\n    }\n}\n\n// --- detect gateways offline\nfor (let eui of Object.keys(gateways.lastSeen)) {\n    if (eui == gtwEUI) continue;\n\n    let lastSeen = gateways.lastSeen[eui];\n    if ((now - lastSeen) > OFFLINE_DELAY && gateways.offline.indexOf(eui) === -1) {\n        // CASE trigger offline alert\n        const alertId = \"ID_\" + Date.now();\n\n        gateways.offline.push(eui);\n        gateways.offlineId[eui] = alertId;\n\n        // add in alert data for influxDB\n        alertsData.push({\n            measurement: \"gateway_alerts\",\n            tags: { devEui: eui, alertId: alertId, alertType: \"offline\", severity: \"critical\" },\n            fields: { value: 1 },\n            timestamp: new Date()\n        });\n    }\n}\n\n\nflow.set(CONTEXT_GATEWAYS, gateways);\n\nif (alertsData.length > 0) {\n    msg.alert_data = alertsData;\n    return msg;\n}\n\nreturn null;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 570,
+        "y": 1240,
+        "wires": [
+            [
+                "0df51124b6bc8233"
+            ]
+        ]
+    },
+    {
+        "id": "0df51124b6bc8233",
+        "type": "switch",
+        "z": "f6f2187d.f17ca8",
+        "name": "Has Alert data ?",
+        "property": "alert_data",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "nempty"
+            },
+            {
+                "t": "empty"
+            },
+            {
+                "t": "null"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 3,
+        "x": 1580,
+        "y": 1240,
+        "wires": [
+            [
+                "00005f40118b0b80",
+                "873f39090f098651"
+            ],
+            [],
+            []
+        ]
+    },
+    {
+        "id": "00005f40118b0b80",
+        "type": "debug",
+        "z": "f6f2187d.f17ca8",
+        "name": "debug_gtw_alert_data",
+        "active": true,
+        "tosidebar": true,
+        "console": true,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 2110,
+        "y": 1260,
+        "wires": []
+    },
+    {
+        "id": "f06642823276d784",
+        "type": "inject",
+        "z": "f6f2187d.f17ca8",
+        "name": "cron_1min",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "60",
+        "crontab": "",
+        "once": true,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 210,
+        "y": 1240,
+        "wires": [
+            [
+                "f4d997243169719b"
+            ]
+        ]
+    },
+    {
+        "id": "5402b00aff7ea33b",
+        "type": "function",
+        "z": "f6f2187d.f17ca8",
+        "name": "prepare_influxdb_shower_payload",
+        "func": "\nmsg.bucket = env.get(\"INFLUXDB_BUCKET\"); // Récupère la variable d'env\nmsg.org = env.get(\"INFLUXDB_ORG\");\n\n//msg.payload = msg.shower_data;\nmsg.payload = msg.shower_data.filter(shower => {\n    return !isNaN(shower.fields.volume) && isFinite(shower.fields.volume);\n});\n\n\n/*\nmsg.payload = [\n    {\n        measurement: \"test_measurement\",\n        tags: { device: \"test_01\" },\n        fields: { value: 10.5 },\n        timestamp: new Date()\n    }\n];\n*/\n\nnode.warn(msg);\n\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 2400,
+        "y": 480,
+        "wires": [
+            [
+                "786204a03deff44d"
+            ]
+        ]
+    },
+    {
+        "id": "873f39090f098651",
+        "type": "function",
+        "z": "f6f2187d.f17ca8",
+        "name": "prepare_influxdb_alert_payload",
+        "func": "\nmsg.bucket = env.get(\"INFLUXDB_BUCKET\");\nmsg.org = env.get(\"INFLUXDB_ORG\");\n\nmsg.payload = msg.alert_data;\n\nnode.warn(msg);\n\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 2410,
+        "y": 920,
+        "wires": [
+            [
+                "786204a03deff44d"
+            ]
+        ]
+    },
+    {
+        "id": "56f5cbc05220a52e",
+        "type": "catch",
+        "z": "f6f2187d.f17ca8",
+        "name": "",
+        "scope": null,
+        "uncaught": false,
+        "x": 210,
+        "y": 1700,
+        "wires": [
+            [
+                "7507d00443187859"
+            ]
+        ]
+    },
+    {
+        "id": "7507d00443187859",
+        "type": "debug",
+        "z": "f6f2187d.f17ca8",
+        "name": "debug_exceptions",
+        "active": true,
+        "tosidebar": true,
+        "console": true,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 580,
+        "y": 1700,
+        "wires": []
+    },
+    {
+        "id": "786204a03deff44d",
+        "type": "influxdb batch",
+        "z": "f6f2187d.f17ca8",
+        "influxdb": "b2d70489494710b0",
+        "precision": "",
+        "retentionPolicy": "",
+        "name": "save_batch_to_influxdb",
+        "database": "database",
+        "precisionV18FluxV20": "ms",
+        "retentionPolicyV18Flux": "",
+        "org": "${INFLUXDB_ORG}",
+        "bucket": "${INFLUXDB_BUCKET}",
+        "x": 2810,
+        "y": 700,
+        "wires": []
+    },
+    {
+        "id": "89183524425d55fc",
+        "type": "function",
+        "z": "f6f2187d.f17ca8",
+        "name": "make_random_shower_consumptions",
+        "func": "// --- PARAMÈTRES DE GÉNÉRATION ---\nconst devEui = msg.devEui || \"0018B20000001234\";\nconst profile = msg.profile || \"maison\";         // maison | hotel | camping\nconst capacity = msg.capacity || null;            // résidents / chambres / cabines (null = défaut)\n\nconst startStr = msg.startDate || \"2026-01-01\";\nconst endStr   = msg.endDate   || \"2026-01-31\";\n\nconst [sy, sm, sd] = startStr.split(\"-\").map(Number);\nconst [ey, em, ed] = endStr.split(\"-\").map(Number);\nconst startDate = new Date(sy, sm - 1, sd, 0, 0, 0);\nconst endDate   = new Date(ey, em - 1, ed, 23, 59, 59);\n\n// --- Utilitaires ---\nfunction rand(min, max)    { return min + Math.random() * (max - min); }\nfunction randInt(min, max) { return Math.floor(rand(min, max + 1)); }\nfunction clamp(v, min, max){ return Math.max(min, Math.min(max, v)); }\nfunction round1(v)         { return Math.round(v * 10) / 10; }\n\nfunction timestampAt(baseDate, hourFloat) {\n    const ts = new Date(baseDate);\n    ts.setHours(0, 0, 0, 0);\n    return ts.getTime() + hourFloat * 3_600_000;\n}\n\n// --- Génère les champs d'une douche ---\nfunction makeShower(ts, profile) {\n    let duration, temperature, number_of_soaping, soaping_time, flow;\n\n    if (profile === \"hotel\") {\n        duration          = randInt(400, 900);\n        temperature       = round1(rand(38, 44));\n        number_of_soaping = randInt(1, 3);\n        soaping_time      = number_of_soaping * randInt(20, 60);\n        flow              = round1(rand(8, 13));\n    } else if (profile === \"camping\") {\n        duration          = randInt(180, 480);\n        temperature       = round1(rand(34, 40));\n        number_of_soaping = randInt(1, 2);\n        soaping_time      = number_of_soaping * randInt(15, 35);\n        flow              = round1(rand(6, 10));\n    } else { // maison\n        duration          = randInt(300, 800);\n        temperature       = round1(rand(38, 43));\n        number_of_soaping = randInt(2, 4);\n        soaping_time      = number_of_soaping * randInt(20, 50);\n        flow              = round1(rand(7, 11));\n    }\n\n    soaping_time = Math.min(soaping_time, duration - 60);\n    const activeSeconds = Math.max(duration - soaping_time, 60);\n    const volume = clamp(round1(activeSeconds / 60 * flow), 5, 200);\n\n    return { volume, duration, soaping_time, number_of_soaping, temperature, flow, _ts: ts };\n}\n\n// --- Génère les douches jour par jour ---\nconst MONTH_FACTORS_CAMPING = [0.02, 0.02, 0.05, 0.20, 0.40, 0.70, 1.00, 1.00, 0.50, 0.15, 0.02, 0.02];\n\nconst showers = [];\nlet showerId = randInt(0, 100);\n\nlet cursor = new Date(startDate);\nwhile (cursor <= endDate) {\n    const dow      = cursor.getDay();   // 0=Dim, 6=Sam\n    const month    = cursor.getMonth();\n    const isWeekend = dow === 0 || dow === 6;\n    const daySlots  = [];\n\n    if (profile === \"maison\") {\n        const residents = capacity || 2;\n        for (let i = 0; i < residents; i++) {\n            // Douche matin (fréquente)\n            if (Math.random() < (isWeekend ? 0.80 : 0.65)) {\n                const h = isWeekend ? rand(8, 11.5) : rand(6.5, 9.5);\n                daySlots.push(makeShower(timestampAt(cursor, h), profile));\n            }\n            // Douche soir (moins fréquente)\n            if (Math.random() < 0.25) {\n                daySlots.push(makeShower(timestampAt(cursor, rand(19, 23)), profile));\n            }\n        }\n\n    } else if (profile === \"hotel\") {\n        const rooms       = capacity || 20;\n        const occupancy   = isWeekend ? rand(0.75, 0.95) : rand(0.50, 0.75);\n        const occupied    = Math.round(rooms * occupancy);\n        for (let i = 0; i < occupied; i++) {\n            // Douche matin (départ)\n            if (Math.random() < 0.85) {\n                daySlots.push(makeShower(timestampAt(cursor, rand(7, 11)), profile));\n            }\n            // Douche soir (arrivée / loisirs)\n            if (Math.random() < 0.40) {\n                daySlots.push(makeShower(timestampAt(cursor, rand(18, 23)), profile));\n            }\n        }\n\n    } else if (profile === \"camping\") {\n        const stalls      = capacity || 4;\n        const seasonal    = MONTH_FACTORS_CAMPING[month];\n        const usersPerStall = isWeekend ? rand(3, 6) : rand(1.5, 3.5);\n        const total       = Math.round(stalls * usersPerStall * seasonal);\n        for (let i = 0; i < total; i++) {\n            const inMorning = Math.random() < 0.55;\n            const h = inMorning ? rand(7.5, 10.5) : rand(17, 21);\n            daySlots.push(makeShower(timestampAt(cursor, h), profile));\n        }\n    }\n\n    // Tri chronologique + attribution des IDs\n    daySlots.sort((a, b) => a._ts - b._ts);\n    for (const s of daySlots) {\n        const ts = s._ts;\n        delete s._ts;\n        showers.push({\n            measurement: \"showers\",\n            tags: { devEui, showerId: String(showerId) },\n            fields: s,\n            timestamp: new Date(ts)\n        });\n        showerId = (showerId + 1) % 65536;\n    }\n\n    cursor.setDate(cursor.getDate() + 1);\n}\n\nmsg.shower_data = showers;\nmsg.debug = {\n    profile,\n    capacity,\n    start: startDate.toLocaleDateString(\"fr-FR\"),\n    end: endDate.toLocaleDateString(\"fr-FR\"),\n    count: showers.length\n};\nnode.warn(msg.debug);\n\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 530,
+        "y": 1060,
+        "wires": [
+            [
+                "85ab1a06c4407bcf",
+                "e93cb05909e343fa"
+            ]
+        ]
+    },
+    {
+        "id": "2fbdb44b0ac1bc43",
+        "type": "inject",
+        "z": "f6f2187d.f17ca8",
+        "name": "inject_shower_data",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "devEui",
+                "v": "3337313900350043",
+                "vt": "str"
+            },
+            {
+                "p": "profile",
+                "v": "camping",
+                "vt": "str"
+            },
+            {
+                "p": "capacity",
+                "v": "30",
+                "vt": "num"
+            },
+            {
+                "p": "startDate",
+                "v": "2026-01-01",
+                "vt": "str"
+            },
+            {
+                "p": "endDate",
+                "v": "2026-05-30",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 190,
+        "y": 1060,
+        "wires": [
+            [
+                "89183524425d55fc"
+            ]
+        ]
+    },
+    {
+        "id": "85ab1a06c4407bcf",
+        "type": "debug",
+        "z": "f6f2187d.f17ca8",
+        "name": "debug_inject_data",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1210,
+        "y": 1040,
+        "wires": []
+    },
+    {
+        "id": "8c73db4fcba1fe4c",
+        "type": "inject",
+        "z": "f6f2187d.f17ca8",
+        "name": "inject_gw_alert_data",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "gtwEui",
+                "v": "00005813d31c83a2",
+                "vt": "str"
+            },
+            {
+                "p": "startDate",
+                "v": "2026-04-17T04:45:00",
+                "vt": "str"
+            },
+            {
+                "p": "endDate",
+                "v": "2026-04-18T14:45:00",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 190,
+        "y": 1320,
+        "wires": [
+            [
+                "cb2b4db80ac70dcb"
+            ]
+        ]
+    },
+    {
+        "id": "cb2b4db80ac70dcb",
+        "type": "function",
+        "z": "f6f2187d.f17ca8",
+        "name": "make_gw_alert_data",
+        "func": "// --- PARAMÈTRES DE GÉNÉRATION ---\nconst gwEui = msg.gwEui || \"00005813d31c83a2\";\n\n// Format attendu : \"2026-03-01\"\nconst startStr = msg.startDate || null;\nconst endStr = msg.endDate || null;\n\n// prepare alert data\nconst dataArray = [];\nconst severity = \"critical\";\nconst alertType = \"offline\";\n\nconst alertId = \"ID_\" + Date.now();\n\nif (startStr !== null && startStr.length > 0) {\n    dataArray.push({\n        measurement: \"gateway_alerts\",\n        tags: { devEui: gwEui, alertId: alertId, alertType: alertType, severity: severity },\n        fields: { value: 1 },\n        timestamp: new Date(startStr)\n    });\n}\n\nif (endStr !== null && endStr.length > 0) {\n    dataArray.push({\n        measurement: \"gateway_alerts\",\n        tags: { devEui: gwEui, alertId: alertId, alertType: alertType, severity: severity },\n        fields: { value: 0 },\n        timestamp: new Date(endStr)\n    });\n}\n\nmsg.alert_data = dataArray;\n\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 560,
+        "y": 1320,
+        "wires": [
+            [
+                "0df51124b6bc8233"
+            ]
+        ]
+    },
+    {
+        "id": "a1b2c3d4e5f6a1b2",
+        "type": "switch",
+        "z": "f6f2187d.f17ca8",
+        "name": "Has Live data ?",
+        "property": "live_data",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "nempty"
+            },
+            {
+                "t": "empty"
+            },
+            {
+                "t": "null"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 3,
+        "x": 1620,
+        "y": 380,
+        "wires": [
+            [
+                "b2c3d4e5f6a1b2c3",
+                "26d1b4435c8201f5"
+            ],
+            [],
+            []
+        ]
+    },
+    {
+        "id": "b2c3d4e5f6a1b2c3",
+        "type": "function",
+        "z": "f6f2187d.f17ca8",
+        "name": "prepare_influxdb_live_payload",
+        "func": "msg.bucket = env.get(\"INFLUXDB_BUCKET\");\nmsg.org = env.get(\"INFLUXDB_ORG\");\nmsg.payload = msg.live_data;\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 2390,
+        "y": 300,
+        "wires": [
+            [
+                "786204a03deff44d"
+            ]
+        ]
+    },
+    {
+        "id": "c3d4e5f6a1b2c3d4",
+        "type": "switch",
+        "z": "f6f2187d.f17ca8",
+        "name": "Has Delete live data ?",
+        "property": "delete_live_data",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "nempty"
+            },
+            {
+                "t": "empty"
+            },
+            {
+                "t": "null"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 3,
+        "x": 1600,
+        "y": 80,
+        "wires": [
+            [
+                "d4e5f6a1b2c3d4e5",
+                "1591efc6f76288f4"
+            ],
+            [],
+            []
+        ]
+    },
+    {
+        "id": "d4e5f6a1b2c3d4e5",
+        "type": "function",
+        "z": "f6f2187d.f17ca8",
+        "name": "prepare_delete_live_shower",
+        "func": "const apiUrl = env.get(\"INFLUXDB_URL\");\nconst org = env.get(\"INFLUXDB_ORG\");\nconst bucket = env.get(\"INFLUXDB_BUCKET\");\nconst token = env.get(\"INFLUXDB_TOKEN\");\n\nconst stop = new Date(Date.now() + 60000).toISOString();\n\nconst messages = msg.delete_live_data.map(({ devEui, showerId }) => ({\n    method: \"POST\",\n    url: `${apiUrl}/api/v2/delete?org=${encodeURIComponent(org)}&bucket=${encodeURIComponent(bucket)}`,\n    headers: {\n        \"Authorization\": `Token ${token}`,\n        \"Content-Type\": \"application/json\"\n    },\n    payload: {\n        start: \"1970-01-01T00:00:00Z\",\n        stop,\n        predicate: `_measurement=\"showers_live\" AND devEui=\"${devEui}\" AND showerId=\"${showerId}\"`\n    }\n}));\n\nreturn [messages];",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 2040,
+        "y": 80,
+        "wires": [
+            [
+                "e5f6a1b2c3d4e5f6"
+            ]
+        ]
+    },
+    {
+        "id": "e5f6a1b2c3d4e5f6",
+        "type": "http request",
+        "z": "f6f2187d.f17ca8",
+        "name": "delete_live_shower",
+        "method": "use",
+        "ret": "obj",
+        "paytoqs": "ignore",
+        "url": "",
+        "tls": "",
+        "persist": false,
+        "proxy": "",
+        "insecureHTTPParser": false,
+        "authType": "",
+        "senderr": false,
+        "headers": [],
+        "x": 2410,
+        "y": 80,
+        "wires": [
+            [
+                "f6a1b2c3d4e5f6a1"
+            ]
+        ]
+    },
+    {
+        "id": "f6a1b2c3d4e5f6a1",
+        "type": "debug",
+        "z": "f6f2187d.f17ca8",
+        "name": "debug_delete_live_result",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 2830,
+        "y": 60,
+        "wires": []
+    },
+    {
+        "id": "7006285ed456b3cd",
+        "type": "inject",
+        "z": "f6f2187d.f17ca8",
+        "name": "Inject 1 live shower US",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "application/1f5328c7-8462-429e-a6a5-6abe135a9fdc/device/59edbb94c18de73e/event/up",
+        "payload": "{   \"deduplicationId\": \"c9be72ff-80ad-43f5-9aa1-40605a81f739\",   \"time\": \"2026-03-05T15:06:21.011601133+00:00\",   \"deviceInfo\": {     \"tenantId\": \"62ec04b7-79d3-40c8-a260-9cdc8b4e1e28\",     \"tenantName\": \"ChirpStack\",     \"applicationId\": \"20b41de0-743f-43a1-883e-4b407244d9c7\",     \"applicationName\": \"Batiment A\",     \"deviceProfileId\": \"176a9ecf-1348-45ee-8963-fc6dfbed7a0f\",     \"deviceProfileName\": \"Showerhead-US\",     \"deviceName\": \"Cereus\",     \"devEui\": \"3833323400260045\",     \"deviceClassEnabled\": \"CLASS_A\",     \"tags\": { \"location\": \"RDC\" }   },   \"devAddr\": \"00eb4d28\",   \"adr\": false,   \"dr\": 3,   \"fCnt\": 4,   \"fPort\": 8,   \"confirmed\": false,   \"data\": \"Gp0HEAB/AVQG\",   \"rxInfo\": [     {       \"gatewayId\": \"00005813d31c83a2\",       \"uplinkId\": 59403,       \"nsTime\": \"2026-03-05T15:06:20.787463008+00:00\",       \"rssi\": -50,       \"snr\": 12.5,       \"channel\": 1,       \"location\": {},       \"context\": \"30CjvA==\",       \"crcStatus\": \"CRC_OK\"     }   ],   \"txInfo\": {     \"frequency\": 867300000,     \"modulation\": {       \"lora\": {         \"bandwidth\": 125000,         \"spreadingFactor\": 9,         \"codeRate\": \"CR_4_5\"       }     }   },   \"regionConfigId\": \"us915\" }",
+        "payloadType": "json",
+        "x": 140,
+        "y": 500,
+        "wires": [
+            [
+                "a0b1c2d3e4f50001"
+            ]
+        ],
+        "info": "On peut retrouver la partie data (en Hexa) dans :\n\nhttps://eu-west-1.console.aws.amazon.com/s3/buckets/meter-event-prod?prefix=input_3p%2Fhac%2Fglacier%2F8336312404000001%2F&region=eu-west-1&tab=objects\n"
+    },
+    {
+        "id": "26d1b4435c8201f5",
+        "type": "debug",
+        "z": "f6f2187d.f17ca8",
+        "name": "debug_live_shower_data",
+        "active": true,
+        "tosidebar": true,
+        "console": true,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 2100,
+        "y": 280,
+        "wires": []
+    },
+    {
+        "id": "1591efc6f76288f4",
+        "type": "debug",
+        "z": "f6f2187d.f17ca8",
+        "name": "debug_delete_live_shower_data",
+        "active": true,
+        "tosidebar": true,
+        "console": true,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 2060,
+        "y": 20,
+        "wires": []
+    },
+    {
+        "id": "a0b1c2d3e4f50001",
+        "type": "switch",
+        "z": "f6f2187d.f17ca8",
+        "name": "switch_by_device_profile",
+        "property": "payload.deviceInfo.deviceProfileName",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "cont",
+                "v": "US",
+                "vt": "str"
+            },
+            {
+                "t": "cont",
+                "v": "EU",
+                "vt": "str"
+            },
+            {
+                "t": "else"
+            }
+        ],
+        "checkall": "false",
+        "repair": false,
+        "outputs": 3,
+        "x": 430,
+        "y": 580,
+        "wires": [
+            [
+                "53693bf9b6b351d0"
+            ],
+            [
+                "a0b1c2d3e4f50002"
+            ],
+            []
+        ]
+    },
+    {
+        "id": "a0b1c2d3e4f50002",
+        "type": "function",
+        "z": "f6f2187d.f17ca8",
+        "name": "decode_showerhead_eu",
+        "func": "// decoder from chirstack\nvar CMD_PUSH_OLDEST_SHOWER_V3 = 26;\nvar CMD_GET_LED_FULL_CONFIG_V3 = 5;\nvar CMD_GET_CALIBRATION_V3 = 7;\nvar CMD_GET_BREAK_THRESHOLD_V3 = 12;\nvar CMD_LIVE_SHOWER_V3 = 27;\nfunction decode(bytes) {\n    let payload = bytes;\n    var returnValue = {\n        showers: {},\n        state: {\n            live: {},\n        },\n    };\n\n    if (payload[0] == CMD_PUSH_OLDEST_SHOWER_V3) {\n        //histo\n        //Id(2)\tLiters(2)\tFlowrate(1)\tTemperature(1)\tSoaping time(1)\tNumber of soaping(1)\tduration(2)\n        var showerId = payload[1] + (payload[2] << 8);\n        if (!returnValue.showers[showerId]) {\n            returnValue.showers[showerId] = {};\n        }\n        returnValue.showers[showerId].liter = payload[3] + (payload[4] << 8);\n        returnValue.showers[showerId].flow = payload[5];\n        returnValue.showers[showerId].temperature = payload[6] << 4;\n        returnValue.showers[showerId].soaping_time = payload[7];\n        returnValue.showers[showerId].number_of_soaping = payload[8];\n        returnValue.showers[showerId].duration =\n            payload[9] + (payload[10] << 8);\n    } else if (payload[0] == CMD_LIVE_SHOWER_V3) {\n        //live\n        //Id(2)\tLiters(2)\taverage Flowrate(2)\tinstant temperature(2)\n\n        returnValue.state.live = {\n            id: payload[1] + (payload[2] << 8),\n            liter: payload[3] + (payload[4] << 8),\n            averageFlow: payload[5] + (payload[6] << 8),\n            instantTemperature: payload[7] + (payload[8] << 8),\n            date: new Date().toISOString(),\n        };\n\n        // Create object if it doesn't exist\n        // if (!returnValue.showers[returnValue.state.live.id]) {\n        //     returnValue.showers[returnValue.state.live.id] = {}\n        // }\n\n        // returnValue.showers[returnValue.state.live.id] = {\n        //     liter: returnValue.state.live.liter,\n        //     date: returnValue.state.live.date,\n        //     flow: returnValue.state.live.averageFlow / 4\n        // };\n    } else if (payload[0] == CMD_GET_LED_FULL_CONFIG_V3) {\n        //05 10 00 FF 00 20 00 00 FF 30 7D 00 7D 40 FF 00 00\n\n        //threshold\n        returnValue.state.thresholds = [];\n        for (var i = 1; i < 17; i += 4) {\n            returnValue.state.thresholds.push({\n                liter: payload[i],\n                color:\n                    'FF' +\n                    (\n                        ('0' + payload[i + 1].toString(16)).substr(-2) +\n                        ('0' + payload[i + 2].toString(16)).substr(-2) +\n                        ('0' + payload[i + 3].toString(16)).substr(-2)\n                    ).toUpperCase(),\n            });\n        }\n    } else if (payload[0] == CMD_GET_CALIBRATION_V3) {\n        //calibration(2)\n        returnValue.state.calibration = payload[1] + (payload[2] << 8);\n    } else if (payload[0] == CMD_GET_BREAK_THRESHOLD_V3) {\n        //get soaping threshold\n        returnValue.state.soaping_threshold = payload[1] + (payload[2] << 8);\n    }\n\n    return {\n        data: returnValue, // JSON object\n        warnings: [], // Optional warnings\n        errors: [] // Optional errors\n    };\n}\n\nif (msg.payload.data) {\n  let data = Buffer.from(msg.payload.data, 'base64')\n  msg.decodedData = decode(data);\n  node.warn(msg.decodedData);\n}\n\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 750,
+        "y": 640,
+        "wires": [
+            [
+                "114b090f789b477d"
+            ]
+        ]
+    },
+    {
+        "id": "72ed9e521f423178",
+        "type": "inject",
+        "z": "f6f2187d.f17ca8",
+        "name": "inject_gw_alert_active_data",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "gtwEui",
+                "v": "00005813d31c83a2",
+                "vt": "str"
+            },
+            {
+                "p": "startDate",
+                "v": "2026-05-04T04:45:00",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 160,
+        "y": 1380,
+        "wires": [
+            [
+                "cb2b4db80ac70dcb"
+            ]
+        ]
+    }
+]

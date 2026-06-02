@@ -1,0 +1,28 @@
+apiVersion: 1
+
+datasources:
+  - name: InfluxDB_Flux
+    type: influxdb
+    access: proxy
+    url: ${INFLUXDB_URL}
+    jsonData:
+      version: Flux
+      organization: ${INFLUXDB_ORG}
+      defaultBucket: ${INFLUXDB_BUCKET}
+    secureJsonData:
+      token: ${INFLUXDB_TOKEN}
+    editable: true
+
+  - name: ChirpStack_Postgres
+    type: postgres
+    url: postgres:5432
+    database: chirpstack
+    user: ${POSTGRES_USER}
+    secureJsonData:
+      password: ${POSTGRES_PASSWORD}
+    jsonData:
+      sslmode: "disable" # 'disable' pour un usage local/docker interne
+      postgresVersion: 1200 # Version par défaut pour ChirpStack v4
+      timescaledb: false
+      database: chirpstack
+    editable: true

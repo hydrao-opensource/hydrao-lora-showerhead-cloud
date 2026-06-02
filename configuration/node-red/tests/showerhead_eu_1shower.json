@@ -1,0 +1,47 @@
+{
+  "deduplicationId": "c9be72ff-80ad-43f5-9aa1-40605a81f739",
+  "time": "2026-03-05T15:06:21.011601133+00:00",
+  "deviceInfo": {
+    "tenantId": "62ec04b7-79d3-40c8-a260-9cdc8b4e1e28",
+    "tenantName": "ChirpStack",
+    "applicationId": "20b41de0-743f-43a1-883e-4b407244d9c7",
+    "applicationName": "Batiment A",
+    "deviceProfileId": "176a9ecf-1348-45ee-8963-fc6dfbed7a0f",
+    "deviceProfileName": "Showerhead-EU-2025",
+    "deviceName": "Cereus EU",
+    "devEui": "bbcb2d9fb5d7bcaa",
+    "deviceClassEnabled": "CLASS_A",
+    "tags": { "location": "RDC" }
+  },
+  "devAddr": "00eb4d28",
+  "adr": false,
+  "dr": 3,
+  "fCnt": 4,
+  "fPort": 8,
+  "confirmed": false,
+  "data": "GiwBBgBtXwAAVAA=",
+  "rxInfo": [
+    {
+      "gatewayId": "00005813d31c83a2",
+      "uplinkId": 59403,
+      "nsTime": "2026-03-05T15:06:20.787463008+00:00",
+      "rssi": -50,
+      "snr": 12.5,
+      "channel": 1,
+      "location": {},
+      "context": "30CjvA==",
+      "crcStatus": "CRC_OK"
+    }
+  ],
+  "txInfo": {
+    "frequency": 867300000,
+    "modulation": {
+      "lora": {
+        "bandwidth": 125000,
+        "spreadingFactor": 9,
+        "codeRate": "CR_4_5"
+      }
+    }
+  },
+  "regionConfigId": "eu868"
+}

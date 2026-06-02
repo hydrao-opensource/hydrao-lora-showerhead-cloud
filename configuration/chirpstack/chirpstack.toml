@@ -1,0 +1,42 @@
+
+[logging]
+
+  # Log level.
+  #
+  # Valid options are:
+  #   * TRACE
+  #   * DEBUG
+  #   * INFO
+  #   * WARN
+  #   * ERROR
+  level="debug"
+
+[network]
+  net_id="000000"
+  # Ajout des régions activées (indispensable en v4)
+  enabled_regions=["us915", "eu868"]
+
+[api]
+  bind="0.0.0.0:8080"
+  secret="un_secret_tres_long_et_aleatoire_here"
+
+[postgresql]
+  dsn="postgres://chirpstack:$POSTGRES_PASSWORD@$POSTGRESQL_HOST/chirpstack?sslmode=disable"
+  max_open_connections=10
+  min_idle_connections=0
+
+# Redis configuration.
+[redis]
+  servers=[
+    "redis://$REDIS_HOST/",
+  ]
+  tls_enabled=false
+  cluster=false
+
+[integration]
+  enabled=["mqtt"]
+
+  [integration.mqtt]
+    server="tcp://$MQTT_BROKER_HOST:1883/"
+    event_topic_template="application/{{ .ApplicationID }}/device/{{ .DevEUI }}/event/{{ .EventType }}"
+    json=true

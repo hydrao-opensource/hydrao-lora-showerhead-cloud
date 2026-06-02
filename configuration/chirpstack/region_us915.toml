@@ -1,0 +1,22 @@
+[[regions]]
+
+  # Doit correspondre à l'entrée dans enabled_regions de chirpstack.toml
+  id = "us915"
+  description = "US915"
+  common_name = "US915"
+
+  [regions.gateway]
+
+    [regions.gateway.backend]
+    type = "mqtt"
+
+      [regions.gateway.backend.mqtt]
+      # Doit pointer vers le broker mosquitto (nom du service docker)
+      server = "tcp://$MQTT_BROKER_HOST:1883"
+
+      # {{ .RegionConfigID }} se résout en "us915" -> topics: us915/gateway/...
+      # Correspond aux templates configurés dans chirpstack-gateway-bridge-basicstation-us915.toml
+      # et aux variables d'environnement du service chirpstack-gateway-bridge dans docker-compose.yaml
+      event_topic_template = "{{ .RegionConfigID }}/gateway/{{ .GatewayID }}/event/{{ .EventType }}"
+      state_topic_template = "{{ .RegionConfigID }}/gateway/{{ .GatewayID }}/state/{{ .StateType }}"
+      command_topic_template = "{{ .RegionConfigID }}/gateway/{{ .GatewayID }}/command/{{ .CommandType }}"

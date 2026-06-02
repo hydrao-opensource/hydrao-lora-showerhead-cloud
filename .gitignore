@@ -9,3 +9,6 @@ grafana_users.csv
 # docker volume for node red
 volumes/node-red-data/*
 !volumes/node-red-data/flows_cred.json
+
+# OS Files
+**/.DS_Store

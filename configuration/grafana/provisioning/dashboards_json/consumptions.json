@@ -1,0 +1,355 @@
+{
+  "annotations": {
+    "list": [
+      {
+        "builtIn": 1,
+        "datasource": {
+          "type": "grafana",
+          "uid": "-- Grafana --"
+        },
+        "enable": true,
+        "hide": true,
+        "iconColor": "rgba(0, 211, 255, 1)",
+        "name": "Annotations & Alerts",
+        "type": "dashboard"
+      }
+    ]
+  },
+  "editable": true,
+  "fiscalYearStartMonth": 0,
+  "graphTooltip": 0,
+  "links": [
+    {
+      "asDropdown": false,
+      "icon": "external link",
+      "includeVars": false,
+      "keepTime": false,
+      "tags": [],
+      "targetBlank": false,
+      "title": "Menu",
+      "tooltip": "",
+      "type": "dashboards",
+      "url": ""
+    }
+  ],
+  "panels": [
+    {
+      "datasource": {
+        "type": "influxdb",
+        "uid": "P2C2B70520A8E42FD"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisBorderShow": false,
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "barWidthFactor": 1,
+            "drawStyle": "bars",
+            "fillOpacity": 76,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "insertNulls": false,
+            "lineInterpolation": "linear",
+            "lineWidth": 0,
+            "pointSize": 7,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "showValues": false,
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "normal"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "fieldMinMax": false,
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": 0
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          },
+          "unit": "litre"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 16,
+        "w": 20,
+        "x": 0,
+        "y": 0
+      },
+      "id": 4,
+      "options": {
+        "legend": {
+          "calcs": ["sum"],
+          "displayMode": "list",
+          "placement": "right",
+          "showLegend": true
+        },
+        "tooltip": {
+          "hideZeros": false,
+          "mode": "multi",
+          "sort": "desc"
+        }
+      },
+      "pluginVersion": "12.4.0",
+      "targets": [
+        {
+          "datasource": {
+            "type": "influxdb",
+            "uid": "P2C2B70520A8E42FD"
+          },
+          "query": "\nimport \"array\"\nimport \"join\"\n\n// TABLE CORRESPONDANCES devEUI => label (pommeaux de douche)\ndeviceNames = array.from(rows: [\n  ${map_showerheads:csv}\n])\n|> group()\n\n// VOLUMES DATA\nrealData = from(bucket: \"${INFLUXDB_BUCKET}\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r._measurement == \"showers\")\n  |> filter(fn: (r) => r._field == \"volume\")\n  |> filter(fn: (r) => contains(value: r.devEui, set: ${showerhead:json}))\n  |> aggregateWindow(every: ${interval}, fn: sum, createEmpty: false)\n  |> group()\n\n// Ancre : évite l'erreur \"empty left table\" si aucune donnée douche n'existe encore\nanchor = array.from(rows: [{\n    _time: 1970-01-01T00:00:00Z,\n    _value: 0.0,\n    devEui: \"0000000000000000\"\n}])\n|> group()\n\ndata = union(tables: [realData, anchor])\n\n// JOIN VOLUME WITH DEVICE NAME\njoin.left(\n    left: data,\n    right: deviceNames,\n    on: (l, r) => l.devEui == r.devEui,\n    as: (l, r) => ({ \n        l with \n        _field: if exists r.name then r.name else l.devEui \n    })\n)\n    |> filter(fn: (r) => r.devEui != \"0000000000000000\")\n    |> keep(columns: [\"_time\", \"_value\", \"_field\"])\n    |> group(columns: [\"_field\"])\n    |> yield(name: \"conso\")",
+          "refId": "A"
+        }
+      ],
+      "title": "Consommation d'eau des douches (Dans la période)",
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "influxdb",
+        "uid": "P2C2B70520A8E42FD"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": 0
+              }
+            ]
+          },
+          "unit": "litre"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 16,
+        "w": 4,
+        "x": 20,
+        "y": 0
+      },
+      "id": 2,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "none",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "percentChangeColorMode": "standard",
+        "reduceOptions": {
+          "calcs": ["lastNotNull"],
+          "fields": "",
+          "values": false
+        },
+        "showPercentChange": false,
+        "textMode": "auto",
+        "wideLayout": true
+      },
+      "pluginVersion": "12.4.0",
+      "targets": [
+        {
+          "datasource": {
+            "type": "influxdb",
+            "uid": "P2C2B70520A8E42FD"
+          },
+          "query": "from(bucket: \"${INFLUXDB_BUCKET}\")\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\n  |> filter(fn: (r) => r._measurement == \"showers\")\n  |> filter(fn: (r) => r._field == \"volume\")\n  |> filter(fn: (r) => contains(value: r.devEui, set: ${showerhead:json}))\n  |> group(columns: [\"devEui\"])\n  |> sum()\n  |> group()\n ",
+          "refId": "A"
+        }
+      ],
+      "title": "Volume total sur la période",
+      "type": "stat"
+    }
+  ],
+  "preload": false,
+  "schemaVersion": 42,
+  "tags": [],
+  "templating": {
+    "list": [
+      {
+        "allValue": "",
+        "allowCustomValue": false,
+        "current": {
+          "text": "All",
+          "value": ["$__all"]
+        },
+        "datasource": {
+          "type": "grafana-postgresql-datasource",
+          "uid": "PC4B41F0C7FBF62A0"
+        },
+        "definition": "SELECT d.name AS \"__text\", encode(d.dev_eui, 'hex') AS \"__value\" FROM device d JOIN device_profile dp ON d.device_profile_id = dp.id WHERE dp.name ILIKE '%showerhead%' ORDER BY d.name;",
+        "includeAll": true,
+        "label": "Pommeau(x)",
+        "multi": true,
+        "name": "showerhead",
+        "options": [],
+        "query": {
+          "dataset": "chirpstack",
+          "editorMode": "code",
+          "format": "table",
+          "query": "SELECT d.name AS \"__text\", encode(d.dev_eui, 'hex') AS \"__value\" FROM device d JOIN device_profile dp ON d.device_profile_id = dp.id WHERE dp.name ILIKE '%showerhead%' ORDER BY d.name;",
+          "rawQuery": true,
+          "rawSql": "SELECT d.name AS \"__text\", encode(d.dev_eui, 'hex') AS \"__value\" FROM device d JOIN device_profile dp ON d.device_profile_id = dp.id WHERE dp.name ILIKE '%showerhead%' ORDER BY d.name;",
+          "refId": "SQLVariableQueryEditor-VariableQuery",
+          "sql": {
+            "columns": [
+              {
+                "parameters": [],
+                "type": "function"
+              }
+            ],
+            "groupBy": [
+              {
+                "property": {
+                  "type": "string"
+                },
+                "type": "groupBy"
+              }
+            ],
+            "limit": 50
+          }
+        },
+        "refresh": 1,
+        "regex": "",
+        "regexApplyTo": "value",
+        "type": "query"
+      },
+      {
+        "current": {
+          "text": "water_data",
+          "value": "water_data"
+        },
+        "hide": 2,
+        "name": "INFLUXDB_BUCKET",
+        "query": "water_data",
+        "skipUrlSync": true,
+        "type": "constant"
+      },
+      {
+        "auto": true,
+        "auto_count": 30,
+        "auto_min": "6h",
+        "current": {
+          "text": "$__auto",
+          "value": "$__auto"
+        },
+        "label": "Granularité",
+        "name": "interval",
+        "options": [
+          {
+            "selected": false,
+            "text": "1h",
+            "value": "1h"
+          },
+          {
+            "selected": false,
+            "text": "1d",
+            "value": "1d"
+          },
+          {
+            "selected": false,
+            "text": "1w",
+            "value": "1w"
+          },
+          {
+            "selected": false,
+            "text": "1mo",
+            "value": "1mo"
+          }
+        ],
+        "query": "1h,1d,1w,1mo",
+        "refresh": 2,
+        "type": "interval"
+      },
+      {
+        "allowCustomValue": false,
+        "current": {
+          "text": "All",
+          "value": ["$__all"]
+        },
+        "datasource": {
+          "type": "grafana-postgresql-datasource",
+          "uid": "PC4B41F0C7FBF62A0"
+        },
+        "definition": "SELECT json_build_object('devEui', encode(d.dev_eui, 'hex'), 'name', d.name)::text\nFROM device d\nJOIN device_profile dp ON d.device_profile_id = dp.id\nWHERE dp.name ILIKE '%showerhead%';",
+        "hide": 2,
+        "includeAll": true,
+        "multi": true,
+        "name": "map_showerheads",
+        "options": [],
+        "query": {
+          "dataset": "chirpstack",
+          "editorMode": "code",
+          "format": "table",
+          "query": "SELECT json_build_object('devEui', encode(d.dev_eui, 'hex'), 'name', d.name)::text\nFROM device d\nJOIN device_profile dp ON d.device_profile_id = dp.id\nWHERE dp.name ILIKE '%showerhead%';",
+          "rawQuery": true,
+          "rawSql": "SELECT json_build_object('devEui', encode(d.dev_eui, 'hex'), 'name', d.name)::text\nFROM device d\nJOIN device_profile dp ON d.device_profile_id = dp.id\nWHERE dp.name ILIKE '%showerhead%';",
+          "refId": "SQLVariableQueryEditor-VariableQuery",
+          "sql": {
+            "columns": [
+              {
+                "parameters": [],
+                "type": "function"
+              }
+            ],
+            "groupBy": [
+              {
+                "property": {
+                  "type": "string"
+                },
+                "type": "groupBy"
+              }
+            ],
+            "limit": 50
+          }
+        },
+        "refresh": 1,
+        "regex": "",
+        "regexApplyTo": "value",
+        "type": "query"
+      }
+    ]
+  },
+  "time": {
+    "from": "now-30d",
+    "to": "now"
+  },
+  "timepicker": {
+    "refresh_intervals": ["1m", "5m", "15m", "30m", "1h", "2h", "1d"]
+  },
+  "timezone": "browser",
+  "title": "Consommations",
+  "uid": "adm68bz",
+  "version": 3,
+  "weekStart": ""
+}
